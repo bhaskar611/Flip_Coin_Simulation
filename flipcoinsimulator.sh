@@ -3,6 +3,7 @@ count=21
 headscount=0
 tailscount=0
 flipscount=0
+difference=2
 while(( 1 ))
 do
     flipscount=$(($flipscount + 1))
@@ -13,19 +14,18 @@ do
     else
         tailscount=$(($tailscount + 1 ))
     fi
-    if(( $headscount == $count || $tailscount == $count ))
+        diff=$(( $headscount - $tailscount ))
+    if(( $headscount == $count && $diff >= $difference ))
     then
+        echo "Heads won by" $diff "points"
         break
-    fi 
+    elif(( $tailscount == $count && $diff >= $difference ))
+    then
+         echo "Tails won by" $diff "points"
+         break
+    fi
+
 done
 echo "Heads count is" $headscount "and Tails Count is" $tailscount
-if(( $headscount > $tailscount ))
-then
-    echo "Heads won by" $(( $headscount - $tailscount ))
-elif(($tailscount > $headscount))
-then
-    echo "Tails won by" $(( $tailscount - $headscount ))
-else    
-    echo "Tie"
-fi
+
 
